@@ -1,0 +1,71 @@
+---
+title: "Simple document" 
+output: html_document
+---
+
+I'm an R Markdown document! 
+
+# Section 1
+
+Here's a **code chunk** that samples from 
+a _normal distribution_:
+
+```{r}
+samp = rnorm(100)
+length(samp)
+```
+
+# Section 2
+
+I can take the mean of the sample, too!
+The mean is `r mean(samp)`.
+
+# Section 3
+
+This is going to be a plot
+```{r chunkname}
+library(tidyverse)
+
+plot_df = tibble(
+  x = rnorm(500, mean=2, sd=4),
+  y = 3 - 4.2*x + rnorm(500)
+)
+
+ggplot(plot_df,aes(x = x,y = y)) + geom_point()
+```
+
+```{r chunk with echo/message, echo=FALSE, message=FALSE}
+library(tidyverse)
+
+plot_df = tibble(
+  x = rnorm(500, mean=2, sd=4),
+  y = 3 - 4.2*x + rnorm(500)
+)
+
+ggplot(plot_df,aes(x = x,y = y)) + geom_point()
+```
+I have applied echo=FALSE and message=FALSE
+
+# Section 3
+## In-class homework (practice)
+```{r, echo=FALSE}
+
+library(tidyverse)
+
+plot_df = tibble(
+  norm_sample = rnorm(500, mean=1),
+  norm_sample_pos = norm_sample > 0,
+  abs_norm_sample = abs(norm_sample)
+)
+
+ggplot(plot_df, aes(x = abs_norm_sample)) + geom_histogram()
+
+median_sample = median(pull(plot_df, norm_sample))
+
+```
+The median of the variable containing absolute values is 
+
+`r round(median_sample, digits = 2)`
+
+
+
